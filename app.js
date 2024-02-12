@@ -3,8 +3,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
-const testRouter = require('./routers/test-router');
-const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utilities/appError');
 
 const app = express();
@@ -21,20 +19,16 @@ app.use(compression());
     next();
 });
 
- app.use('/api/v1/test',testRouter);
-
- app.get('/',(req, res)=>{
-   res.status(200).json({
-       status:'success',
-       data:{
-           message:'Node Express Server running.....'
-       }
-   })
+ app.get('/api/v2/test/:testdata',(req, res)=>{
+    const testData = req.params.testdata;
+    if(!testData || testData !== 'testmagic') {
+        return next(new AppError('No test Data found in request params',400));
+    }
+    res.status(200).json({
+        status:'success',
+        code:200,
+        data:true
+    });
  });
-// ROUTES ERROR HANDLER
-app.all('*',(req,res,next)=>{
-   
-    next(new AppError(`can't find ${req.originalUrl} on this server`,404));
-});
-app.use(globalErrorHandler);
+
 module.exports = app;
