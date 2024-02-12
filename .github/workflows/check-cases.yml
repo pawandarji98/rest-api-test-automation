@@ -1,0 +1,27 @@
+name: CI/CD for Your Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Add any build steps here, if applicable
+
+      - name: Fetch test repository
+        run: git clone https://github.com/pawan-swqa/api-unit-test-cases.git tests
+
+      - name: Install dependencies
+        working-directory: tests
+        run: npm install
+
+      - name: Run tests
+        working-directory: tests
+        run: npx mocha --recursive api-tests/*.js --timeout 10000 --reporter mochawesome
