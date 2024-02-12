@@ -21,7 +21,7 @@ app.use(compression());
 
  app.get('/api/v2/test/:testdata',(req, res)=>{
     const testData = req.params.testdata;
-    if(!testData || testData !== 'testmagic') {
+    if(!testData || testData !== 'tests') {
         return next(new AppError('No test Data found in request params',400));
     }
     res.status(200).json({
