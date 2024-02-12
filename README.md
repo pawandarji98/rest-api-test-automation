@@ -6,6 +6,8 @@ Npm: v9.2.4
 
 
 #How to setup project
+
+
 clone the project by using command git clone PROJECT_URL
 
 OR
@@ -20,7 +22,7 @@ Thats it , you are now done with setting up the project
 
 "Npm start" to run the project
 
-You will see pyour project running on locahost:3000
+You will see your project running on locahost:3000
 
 
 
